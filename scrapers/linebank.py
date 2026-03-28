@@ -8,79 +8,81 @@ from .base import BaseScraper, Offer
 
 class LineBankScraper(BaseScraper):
     BANK_NAME = "LINE Bank"
-    BASE_URL = "https://www.linebank.com.tw"
-    OFFERS_URL = "https://www.linebank.com.tw/creditcard/promotion"
+    BASE_URL = "https://event.linebank.com.tw"
+    OFFERS_URL = "https://event.linebank.com.tw/marketing/cobrandcards/"
 
     async def _scrape_page(self, page: Page) -> List[Offer]:
-        ok = await self._goto(page, self.OFFERS_URL, wait=6000)
-        if not ok:
-            return self._get_fallback_data()
-
-        # LINE Bank 是 React SPA，等多一點
-        await page.wait_for_timeout(3000)
-
-        # 策略一：API
-        for api in self._api_responses:
-            parsed = self._parse_json_offers(api["data"])
-            if parsed:
-                self.logger.info(f"  ✅ API 解析 {len(parsed)} 筆")
-                return parsed
-
-        # 策略二：HTML
-        selectors = [
-            ".promotion-card", ".promo-card",
-            "[class*='promotion']", "[class*='card-item']",
-            "article", ".list-item", ".campaign",
+        urls = [
+            "https://event.linebank.com.tw/marketing/cobrandcards/",
+            "https://corp.linebank.com.tw/news/",
+            "https://www.linebank.com.tw/creditcard/promotion",
         ]
-        cards = await self._find_cards(page, selectors)
 
-        offers = []
-        for card in cards[:20]:
-            title_el = await card.query_selector(
-                "h2,h3,h4,.title,[class*='title']")
-            title = await self._text(title_el)
-            if not title or len(title) < 3:
+        for url in urls:
+            ok = await self._goto(page, url, wait=6000)
+            if not ok:
                 continue
 
-            desc_el = await card.query_selector("p,.desc,[class*='desc']")
-            desc = await self._text(desc_el)
+            await page.wait_for_timeout(2000)
 
-            link_el = await card.query_selector("a")
-            href = await self._attr(link_el, "href")
-            if href and not href.startswith("http"):
-                href = self.BASE_URL + href
+            # 策略一：API 攔截
+            for api in self._api_responses:
+                parsed = self._parse_json_offers(api["data"])
+                if parsed:
+                    self.logger.info(f"  ✅ API 解析 {len(parsed)} 筆")
+                    return parsed
 
-            img_el = await card.query_selector("img")
-            img = await self._attr(img_el, "src")
+            # 策略二：HTML 解析
+            selectors = [
+                ".promotion-card", ".promo-card", ".event-card",
+                "[class*='promotion']", "[class*='card-item']",
+                "article", ".list-item", ".news-item",
+            ]
+            cards = await self._find_cards(page, selectors)
+            offers = []
+            for card in cards[:20]:
+                title_el = await card.query_selector(
+                    "h2,h3,h4,.title,[class*='title']")
+                title = await self._text(title_el)
+                if not title or len(title) < 3:
+                    continue
+                desc_el = await card.query_selector("p,.desc,[class*='desc']")
+                desc = await self._text(desc_el)
+                link_el = await card.query_selector("a")
+                href = await self._attr(link_el, "href")
+                if href and not href.startswith("http"):
+                    href = self.BASE_URL + href
+                img_el = await card.query_selector("img")
+                img = await self._attr(img_el, "src")
+                date_el = await card.query_selector("[class*='date'],time")
+                date = await self._text(date_el)
+                combined = title + " " + desc
+                offers.append(Offer(
+                    bank=self.BANK_NAME, title=title,
+                    description=desc, category=self._classify(combined),
+                    end_date=date, url=href or url,
+                    image_url=img, tags=self._tags(combined),
+                ))
+            if offers:
+                return offers
 
-            date_el = await card.query_selector("[class*='date'],time")
-            date = await self._text(date_el)
-
-            combined = title + " " + desc
-            offers.append(Offer(
-                bank=self.BANK_NAME, title=title,
-                description=desc, category=self._classify(combined),
-                end_date=date, url=href or self.OFFERS_URL,
-                image_url=img, tags=self._tags(combined),
-            ))
-
-        return offers if offers else self._get_fallback_data()
+        return self._get_fallback_data()
 
     def _get_fallback_data(self) -> List[Offer]:
         return [
             Offer(bank=self.BANK_NAME,
-                  title="LINE Pay 卡最高 3% LINE POINTS",
-                  description="消費享 3% LINE POINTS 回饋，綁定 LINE Pay 更享加碼",
-                  category="點數紅利", end_date="",
-                  url=self.OFFERS_URL, tags=["LINE POINTS", "行動支付"]),
-            Offer(bank=self.BANK_NAME,
-                  title="現金回饋卡 1.5% 無上限",
-                  description="所有消費不限類別享 1.5% 現金回饋",
+                  title="快點卡週週最高 15% 回饋",
+                  description="LINE Bank 快點卡 2026 年百萬商戶消費享週週最高 15% 重磅優惠",
                   category="現金回饋", end_date="",
-                  url=self.OFFERS_URL, tags=["現金", "回饋"]),
+                  url=self.OFFERS_URL, tags=["回饋", "快點卡"]),
             Offer(bank=self.BANK_NAME,
-                  title="外送平台 5% LINE POINTS 回饋",
-                  description="Uber Eats、foodpanda 消費享 5% LINE POINTS",
-                  category="餐飲美食", end_date="",
-                  url=self.OFFERS_URL, tags=["外送", "LINE POINTS"]),
+                  title="聯名信用卡扣繳回饋最高 NT$600",
+                  description="首次申辦 LINE Bank 聯名信用卡，透過主帳戶自動扣繳享 5% 回饋，總計最高 NT$600",
+                  category="現金回饋", end_date="2026-07-31",
+                  url=self.OFFERS_URL, tags=["聯名卡", "回饋", "扣繳"]),
+            Offer(bank=self.BANK_NAME,
+                  title="Trip.com 日韓機票 15% 現折",
+                  description="刷 LINE Bank 快點卡訂 Trip.com 日韓機票立享 15% 現折優惠",
+                  category="旅遊住宿", end_date="",
+                  url=self.OFFERS_URL, tags=["機票", "旅遊", "折扣"]),
         ]
