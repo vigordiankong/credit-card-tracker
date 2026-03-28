@@ -8,13 +8,13 @@ from .base import BaseScraper, Offer
 
 class ESunScraper(BaseScraper):
     BANK_NAME = "玉山銀行"
-    BASE_URL = "https://card.esunbank.com.tw"
-    OFFERS_URL = "https://card.esunbank.com.tw/EsunCreditweb/txnservice/identify?PRJCD=ALLACTIV"
+    BASE_URL = "https://www.esunbank.com"
+    OFFERS_URL = "https://www.esunbank.com/zh-tw/personal/credit-card/discount/shops"
 
     async def _scrape_page(self, page: Page) -> List[Offer]:
-        # 嘗試多個玉山優惠頁面
+        # 嘗試多個玉山優惠頁面（公開不需登入）
         urls = [
-            "https://card.esunbank.com.tw/EsunCreditweb/txnservice/identify?PRJCD=ALLACTIV",
+            "https://www.esunbank.com/zh-tw/personal/credit-card/discount/shops",
             "https://event.esunbank.com.tw/credit/",
             "https://www.esunbank.com.tw/bank/personal/card/credit-card/",
         ]
@@ -56,7 +56,7 @@ class ESunScraper(BaseScraper):
             link_el = await card.query_selector("a")
             href = await self._attr(link_el, "href")
             if href and not href.startswith("http"):
-                href = self.BASE_URL + href
+                    href = self.BASE_URL + href
 
             date_el = await card.query_selector("[class*='date'],time")
             date = await self._text(date_el)
