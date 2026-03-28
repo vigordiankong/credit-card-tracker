@@ -1,0 +1,58 @@
+name: 🕷️ 每日爬取信用卡優惠
+
+on:
+  # 每天台灣時間 AM 8:00 自動執行 (UTC 00:00)
+  schedule:
+    - cron: '0 0 * * *'
+
+  # 允許手動觸發
+  workflow_dispatch:
+
+permissions:
+  contents: write  # 允許寫入 data/offers.json
+
+jobs:
+  scrape:
+    name: 爬取各銀行優惠
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: 📥 Checkout 程式碼
+        uses: actions/checkout@v4
+
+      - name: 🐍 設定 Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: 📦 安裝相依套件
+        run: |
+          pip install -r requirements.txt
+          playwright install chromium --with-deps
+
+      - name: 🕷️ 執行爬蟲
+        run: python main.py
+        env:
+          PYTHONIOENCODING: utf-8
+
+      - name: 📊 顯示爬取結果
+        run: |
+          echo "=== 爬取結果 ==="
+          cat data/offers.json | python -c "
+          import json,sys
+          d = json.load(sys.stdin)
+          print(f'總計: {d[\"total_count\"]} 筆優惠')
+          for bank, count in d['summary'].items():
+              print(f'  {bank}: {count} 筆')
+          print(f'更新時間: {d[\"last_updated\"]}')
+          "
+
+      - name: 💾 提交更新的資料
+        run: |
+          git config --global user.name 'GitHub Actions Bot'
+          git config --global user.email 'actions@github.com'
+          git add data/offers.json
+          git diff --staged --quiet || git commit -m "🔄 自動更新優惠資料 $(date '+%Y-%m-%d %H:%M')"
+          git push
