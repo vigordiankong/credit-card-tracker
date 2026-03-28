@@ -437,7 +437,7 @@
     try {
       // 讀取 data/offers.json（相對於 index.html 的路徑）
       // 若部署到 GitHub Pages，需改為絕對路徑
-      const dataUrl = '../data/offers.json';
+      const dataUrl = './data/offers.json';
       const res = await fetch(dataUrl + '?t=' + Date.now());
 
       if (!res.ok) throw new Error('無法載入資料');
