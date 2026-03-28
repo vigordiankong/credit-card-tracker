@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="theme-color" content="#6366f1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="卡優惠" />
+  <meta name="description" content="追蹤中信、國泰、玉山、台新、永豐、LINE Bank 信用卡優惠" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <title>卡優惠 - 信用卡優惠追蹤</title>
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --success: #10b981;
+      --tag-bg: #ede9fe;
+      --tag-color: #6366f1;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f172a;
+        --card-bg: #1e293b;
+        --text: #f1f5f9;
+        --text-muted: #94a3b8;
+        --border: #334155;
+        --tag-bg: #312e81;
+        --tag-color: #a5b4fc;
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
+
+    /* ─── Header ─── */
+    .header {
+      background: linear-gradient(135deg, var(--primary) 0%, #8b5cf6 100%);
+      color: white;
+      padding: 20px 16px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(99,102,241,0.3);
+    }
+    .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .header h1 { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
+    .header h1 span { opacity: 0.8; font-size: 13px; font-weight: 400; display: block; margin-top: 2px; }
+    .refresh-btn {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .refresh-btn:hover { background: rgba(255,255,255,0.3); }
+    .refresh-btn.spinning { animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── Search ─── */
+    .search-box {
+      background: rgba(255,255,255,0.15);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 8px;
+    }
+    .search-box input {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 15px;
+      padding: 10px 0;
+      flex: 1;
+      outline: none;
+    }
+    .search-box input::placeholder { color: rgba(255,255,255,0.6); }
+    .search-icon { font-size: 16px; opacity: 0.7; }
+
+    /* ─── Filter Chips ─── */
+    .filter-section { padding: 12px 16px; background: var(--card-bg); border-bottom: 1px solid var(--border); }
+    .filter-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .chips-row { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+    .chips-row::-webkit-scrollbar { display: none; }
+    .chip {
+      flex-shrink: 0;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      color: var(--text-muted);
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .chip.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+    .chip:hover:not(.active) { border-color: var(--primary); color: var(--primary); }
+
+    /* ─── Stats Bar ─── */
+    .stats-bar {
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .stats-bar strong { color: var(--primary); }
+    .last-updated { font-size: 11px; }
+
+    /* ─── Offer Cards ─── */
+    .cards-container { padding: 0 16px; }
+    .offer-card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: transform 0.15s, box-shadow 0.15s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .offer-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 14px 0;
+    }
+    .bank-badge {
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      flex-shrink: 0;
+    }
+    .category-badge {
+      font-size: 11px;
+      color: var(--text-muted);
+      flex: 1;
+    }
+    .card-body { padding: 8px 14px 14px; }
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .card-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 14px 12px;
+      border-top: 1px solid var(--border);
+      margin-top: 8px;
+    }
+    .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .tag {
+      background: var(--tag-bg);
+      color: var(--tag-color);
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-weight: 500;
+    }
+    .card-date { font-size: 11px; color: var(--text-muted); }
+    .card-link { font-size: 12px; color: var(--primary); font-weight: 600; }
+
+    /* ─── Bank Colors ─── */
+    .bank-中國信託 { background: #fff0e6; color: #c05c00; }
+    .bank-國泰世華 { background: #e6f4ff; color: #0066cc; }
+    .bank-玉山銀行 { background: #e8f8f0; color: #00875a; }
+    .bank-台新銀行 { background: #fff0f0; color: #cc0033; }
+    .bank-永豐銀行 { background: #fef3e2; color: #b45309; }
+    .bank-LINE\ Bank { background: #e8fbe8; color: #06c755; }
+
+    /* ─── Empty State ─── */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+    .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
+    .empty-state p { font-size: 15px; }
+
+    /* ─── Loading ─── */
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px;
+      gap: 16px;
+      color: var(--text-muted);
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    /* ─── Bottom Nav ─── */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--card-bg);
+      border-top: 1px solid var(--border);
+      display: flex;
+      padding: 8px 0;
+      z-index: 100;
+    }
+    .nav-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      padding: 4px;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: var(--text-muted);
+      font-size: 10px;
+      transition: color 0.15s;
+    }
+    .nav-item .icon { font-size: 22px; }
+    .nav-item.active { color: var(--primary); }
+
+    /* ─── Toast ─── */
+    .toast {
+      position: fixed;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e293b;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      z-index: 200;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .toast.show { opacity: 1; }
+
+    /* ─── Install Banner ─── */
+    .install-banner {
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: white;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      display: none;
+    }
+    .install-banner.show { display: flex; }
+    .install-banner p { flex: 1; font-size: 13px; }
+    .install-banner button {
+      background: white;
+      color: var(--primary-dark);
+      border: none;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .install-close { background: none; border: none; color: white; font-size: 18px; cursor: pointer; padding: 0 4px; }
+  </style>
+</head>
+<body>
+
+<!-- Install Banner -->
+<div class="install-banner" id="installBanner">
+  <p>📲 加入主畫面，隨時查看最新優惠！</p>
+  <button onclick="installApp()">安裝</button>
+  <button class="install-close" onclick="hideInstallBanner()">✕</button>
+</div>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-top">
+    <h1>💳 卡優惠<span>信用卡優惠追蹤器</span></h1>
+    <button class="refresh-btn" id="refreshBtn" onclick="loadOffers(true)" title="重新整理">🔄</button>
+  </div>
+  <div class="search-box">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="搜尋優惠、銀行、回饋..." oninput="filterOffers()" />
+  </div>
+</div>
+
+<!-- Filter Chips - Banks -->
+<div class="filter-section">
+  <div class="filter-label">銀行篩選</div>
+  <div class="chips-row" id="bankChips">
+    <div class="chip active" onclick="selectBank('全部', this)">全部</div>
+    <div class="chip" onclick="selectBank('中國信託', this)">中信</div>
+    <div class="chip" onclick="selectBank('國泰世華', this)">國泰</div>
+    <div class="chip" onclick="selectBank('玉山銀行', this)">玉山</div>
+    <div class="chip" onclick="selectBank('台新銀行', this)">台新</div>
+    <div class="chip" onclick="selectBank('永豐銀行', this)">永豐</div>
+    <div class="chip" onclick="selectBank('LINE Bank', this)">LINE Bank</div>
+  </div>
+  <!-- Category Filter -->
+  <div class="filter-label" style="margin-top:10px;">類別篩選</div>
+  <div class="chips-row" id="categoryChips">
+    <div class="chip active" onclick="selectCategory('全部', this)">全部類別</div>
+    <div class="chip" onclick="selectCategory('現金回饋', this)">💰 現金回饋</div>
+    <div class="chip" onclick="selectCategory('點數紅利', this)">⭐ 點數紅利</div>
+    <div class="chip" onclick="selectCategory('餐飲美食', this)">🍜 餐飲</div>
+    <div class="chip" onclick="selectCategory('購物消費', this)">🛍 購物</div>
+    <div class="chip" onclick="selectCategory('旅遊住宿', this)">✈️ 旅遊</div>
+    <div class="chip" onclick="selectCategory('生活娛樂', this)">🎮 生活</div>
+    <div class="chip" onclick="selectCategory('加油交通', this)">⛽ 加油</div>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats-bar">
+  <div>共 <strong id="countDisplay">0</strong> 筆優惠</div>
+  <div class="last-updated" id="lastUpdated"></div>
+</div>
+
+<!-- Cards -->
+<div class="cards-container" id="cardsContainer">
+  <div class="loading">
+    <div class="spinner"></div>
+    <p>載入優惠資料中...</p>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Bottom Nav -->
+<div class="bottom-nav">
+  <button class="nav-item active" onclick="setPage('home', this)">
+    <span class="icon">🏠</span>全部優惠
+  </button>
+  <button class="nav-item" onclick="setPage('saved', this)">
+    <span class="icon">❤️</span>已收藏
+  </button>
+  <button class="nav-item" onclick="setPage('compare', this)">
+    <span class="icon">⚖️</span>比較
+  </button>
+  <button class="nav-item" onclick="setPage('settings', this)">
+    <span class="icon">⚙️</span>設定
+  </button>
+</div>
+
+<script>
+  // ─── State ───
+  let allOffers = [];
+  let filteredOffers = [];
+  let selectedBank = '全部';
+  let selectedCategory = '全部';
+  let savedOffers = new Set(JSON.parse(localStorage.getItem('savedOffers') || '[]'));
+  let currentPage = 'home';
+  let deferredPrompt = null;
+
+  // ─── PWA Install ───
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    if (!localStorage.getItem('installDismissed')) {
+      document.getElementById('installBanner').classList.add('show');
+    }
+  });
+
+  function installApp() {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(result => {
+        if (result.outcome === 'accepted') showToast('✅ 已加入主畫面！');
+        deferredPrompt = null;
+      });
+    }
+    hideInstallBanner();
+  }
+
+  function hideInstallBanner() {
+    document.getElementById('installBanner').classList.remove('show');
+    localStorage.setItem('installDismissed', '1');
+  }
+
+  // ─── Load Data ───
+  async function loadOffers(forceRefresh = false) {
+    const btn = document.getElementById('refreshBtn');
+    btn.classList.add('spinning');
+
+    try {
+      // 讀取 data/offers.json（相對於 index.html 的路徑）
+      // 若部署到 GitHub Pages，需改為絕對路徑
+      const dataUrl = '../data/offers.json';
+      const res = await fetch(dataUrl + '?t=' + Date.now());
+
+      if (!res.ok) throw new Error('無法載入資料');
+
+      const data = await res.json();
+      allOffers = data.offers || [];
+
+      const updated = new Date(data.last_updated);
+      document.getElementById('lastUpdated').textContent =
+        '更新: ' + updated.toLocaleString('zh-TW', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+      filterOffers();
+      if (forceRefresh) showToast('✅ 已更新最新優惠！');
+
+    } catch (err) {
+      console.error(err);
+      // 使用內嵌的示範資料
+      allOffers = getSampleData();
+      filterOffers();
+      if (forceRefresh) showToast('⚠️ 使用本機資料（無法連線）');
+    } finally {
+      btn.classList.remove('spinning');
+    }
+  }
+
+  // ─── Filters ───
+  function selectBank(bank, el) {
+    selectedBank = bank;
+    document.querySelectorAll('#bankChips .chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    filterOffers();
+  }
+
+  function selectCategory(cat, el) {
+    selectedCategory = cat;
+    document.querySelectorAll('#categoryChips .chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    filterOffers();
+  }
+
+  function filterOffers() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+
+    filteredOffers = allOffers.filter(o => {
+      const matchBank = selectedBank === '全部' || o.bank === selectedBank;
+      const matchCat = selectedCategory === '全部' || o.category === selectedCategory;
+      const matchSearch = !query || [o.title, o.description, o.bank, o.category, ...(o.tags || [])].join(' ').toLowerCase().includes(query);
+      return matchBank && matchCat && matchSearch;
+    });
+
+    if (currentPage === 'saved') {
+      filteredOffers = filteredOffers.filter(o => savedOffers.has(offerKey(o)));
+    }
+
+    document.getElementById('countDisplay').textContent = filteredOffers.length;
+    renderCards();
+  }
+
+  // ─── Render ───
+  function renderCards() {
+    const container = document.getElementById('cardsContainer');
+
+    if (filteredOffers.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="icon">${currentPage === 'saved' ? '❤️' : '🔍'}</div>
+          <p>${currentPage === 'saved' ? '還沒有收藏的優惠<br>點擊優惠卡片的 ❤️ 來收藏' : '找不到符合的優惠<br>試試調整搜尋條件'}</p>
+        </div>`;
+      return;
+    }
+
+    container.innerHTML = filteredOffers.map(offer => renderCard(offer)).join('');
+  }
+
+  function offerKey(o) {
+    return o.bank + '_' + o.title;
+  }
+
+  function renderCard(offer) {
+    const key = offerKey(offer);
+    const isSaved = savedOffers.has(key);
+    const tags = (offer.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
+    const bankClass = 'bank-' + offer.bank.replace(' ', '\\ ');
+
+    return `
+      <div class="offer-card" onclick="openOffer('${encodeURIComponent(offer.url)}', '${offer.bank}')">
+        <div class="card-header">
+          <span class="bank-badge ${bankClass}">${offer.bank}</span>
+          <span class="category-badge">${offer.category}</span>
+          <span style="cursor:pointer;font-size:18px;" onclick="toggleSave(event,'${key}')" title="收藏">
+            ${isSaved ? '❤️' : '🤍'}
+          </span>
+        </div>
+        <div class="card-body">
+          <div class="card-title">${offer.title}</div>
+          ${offer.description ? `<div class="card-desc">${offer.description}</div>` : ''}
+        </div>
+        ${tags || offer.end_date ? `
+        <div class="card-footer">
+          <div class="tags">${tags}</div>
+          ${offer.end_date ? `<div class="card-date">⏰ ${offer.end_date}</div>` : ''}
+        </div>` : ''}
+      </div>`;
+  }
+
+  function openOffer(encodedUrl, bank) {
+    const url = decodeURIComponent(encodedUrl);
+    if (url && url.startsWith('http')) {
+      window.open(url, '_blank');
+    }
+  }
+
+  function toggleSave(event, key) {
+    event.stopPropagation();
+    if (savedOffers.has(key)) {
+      savedOffers.delete(key);
+      showToast('已移除收藏');
+    } else {
+      savedOffers.add(key);
+      showToast('❤️ 已收藏！');
+    }
+    localStorage.setItem('savedOffers', JSON.stringify([...savedOffers]));
+    renderCards();
+  }
+
+  // ─── Navigation ───
+  function setPage(page, el) {
+    currentPage = page;
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+
+    if (page === 'compare') {
+      showCompare();
+      return;
+    }
+    if (page === 'settings') {
+      showSettings();
+      return;
+    }
+
+    filterOffers();
+  }
+
+  function showCompare() {
+    const banks = ['中國信託', '國泰世華', '玉山銀行', '台新銀行', '永豐銀行', 'LINE Bank'];
+    const counts = {};
+    banks.forEach(b => {
+      counts[b] = allOffers.filter(o => o.bank === b).length;
+    });
+
+    const maxRate = {
+      '中國信託': '6%', '國泰世華': '6%', '玉山銀行': '6%',
+      '台新銀行': '5%', '永豐銀行': '5%', 'LINE Bank': '5%',
+    };
+
+    document.getElementById('cardsContainer').innerHTML = `
+      <div style="padding:8px 0">
+        <h2 style="font-size:16px;font-weight:700;margin-bottom:12px">📊 銀行優惠比較</h2>
+        ${banks.map(b => `
+          <div class="offer-card" style="cursor:default">
+            <div style="padding:14px;display:flex;align-items:center;gap:12px">
+              <span class="bank-badge bank-${b.replace(' ','_')}" style="font-size:13px;padding:5px 12px">${b}</span>
+              <div style="flex:1">
+                <div style="font-size:13px;color:var(--text-muted)">目前優惠數量</div>
+                <div style="font-size:18px;font-weight:700;color:var(--primary)">${counts[b] || 0} 筆</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-size:11px;color:var(--text-muted)">最高回饋</div>
+                <div style="font-size:20px;font-weight:800;color:#10b981">${maxRate[b]}</div>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>`;
+  }
+
+  function showSettings() {
+    document.getElementById('cardsContainer').innerHTML = `
+      <div style="padding:8px 0">
+        <h2 style="font-size:16px;font-weight:700;margin-bottom:16px">⚙️ 設定</h2>
+        <div class="offer-card" style="cursor:default;padding:16px">
+          <div style="font-weight:700;margin-bottom:8px">📊 資料來源</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.6">
+            資料每天自動從各銀行官網爬取更新<br>
+            最後更新: <span id="settingsUpdateTime"></span>
+          </div>
+        </div>
+        <div class="offer-card" style="cursor:default;padding:16px">
+          <div style="font-weight:700;margin-bottom:8px">🏦 追蹤銀行</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.8">
+            ✅ 中國信託 (CTBC)<br>
+            ✅ 國泰世華銀行<br>
+            ✅ 玉山銀行<br>
+            ✅ 台新銀行<br>
+            ✅ 永豐銀行<br>
+            ✅ LINE Bank
+          </div>
+        </div>
+        <div class="offer-card" style="cursor:default;padding:16px">
+          <div style="font-weight:700;margin-bottom:8px">❤️ 收藏管理</div>
+          <div style="font-size:13px;color:var(--text-muted);margin-bottom:12px">已收藏 ${savedOffers.size} 筆優惠</div>
+          <button onclick="clearSaved()" style="background:#fee2e2;color:#dc2626;border:none;padding:8px 16px;border-radius:8px;font-size:13px;cursor:pointer;font-weight:600">清除所有收藏</button>
+        </div>
+        <div class="offer-card" style="cursor:default;padding:16px">
+          <div style="font-weight:700;margin-bottom:8px">📱 安裝 App</div>
+          <div style="font-size:13px;color:var(--text-muted);margin-bottom:12px">將此頁面加入手機主畫面，享受原生 App 體驗</div>
+          <div style="font-size:12px;color:var(--text-muted);line-height:1.6">
+            <b>iPhone:</b> Safari → 分享 → 加入主畫面<br>
+            <b>Android:</b> Chrome → 選單 → 新增至主畫面
+          </div>
+        </div>
+      </div>`;
+    document.getElementById('settingsUpdateTime').textContent =
+      document.getElementById('lastUpdated').textContent;
+  }
+
+  function clearSaved() {
+    if (confirm('確定要清除所有收藏嗎？')) {
+      savedOffers.clear();
+      localStorage.removeItem('savedOffers');
+      showToast('已清除所有收藏');
+      showSettings();
+    }
+  }
+
+  // ─── Toast ───
+  function showToast(msg, duration = 2000) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), duration);
+  }
+
+  // ─── Sample Data (Fallback) ───
+  function getSampleData() {
+    const now = new Date().toISOString();
+    return [
+      { bank:'中國信託', title:'中信卡 LINE Pay 最高 6% 回饋', description:'使用中信 LINE Pay 聯名卡消費，一般消費享 3% LINE POINTS，指定通路最高 6%', category:'現金回饋', end_date:'2025-12-31', url:'https://www.ctbcbank.com', tags:['回饋','LINE Pay'], scraped_at:now },
+      { bank:'中國信託', title:'海外消費享 3% 現金回饋', description:'指定中信卡海外消費享 3% 現金回饋，每月上限 NT$3,000', category:'現金回饋', end_date:'2025-12-31', url:'https://www.ctbcbank.com', tags:['海外','回饋'], scraped_at:now },
+      { bank:'中國信託', title:'超商消費享 5% 回饋', description:'7-11、全家、萊爾富、OK 四大超商消費，享 5% 現金回饋', category:'生活娛樂', end_date:'2025-12-31', url:'https://www.ctbcbank.com', tags:['超商','回饋'], scraped_at:now },
+      { bank:'國泰世華', title:'CUBE 卡最高 6% 回饋', description:'國泰 CUBE 卡綁定 CUBE App，自選消費類別最高 6% 現金回饋', category:'現金回饋', end_date:'2025-12-31', url:'https://www.cathaybk.com.tw', tags:['CUBE','回饋'], scraped_at:now },
+      { bank:'國泰世華', title:'Costco 聯名卡 1.5% 回饋', description:'所有消費皆享 1.5% 現金回饋，年末一次退還，無消費類別限制', category:'現金回饋', end_date:'2025-12-31', url:'https://www.cathaybk.com.tw', tags:['Costco','現金'], scraped_at:now },
+      { bank:'國泰世華', title:'海外及網購 3% 回饋', description:'指定國泰卡海外刷卡及網購享 3% 現金回饋', category:'購物消費', end_date:'2025-12-31', url:'https://www.cathaybk.com.tw', tags:['海外','網購'], scraped_at:now },
+      { bank:'玉山銀行', title:'Pi 拍錢包卡 2.5% 回饋', description:'行動支付享 2.5% Pi 幣回饋，一般消費 1%', category:'現金回饋', end_date:'2025-12-31', url:'https://www.esunbank.com.tw', tags:['Pi幣','行動支付'], scraped_at:now },
+      { bank:'玉山銀行', title:'U Bear 卡 最高 6% 回饋', description:'指定超商、外送平台最高 6% 現金回饋', category:'生活娛樂', end_date:'2025-12-31', url:'https://www.esunbank.com.tw', tags:['超商','外送'], scraped_at:now },
+      { bank:'玉山銀行', title:'Only 卡 網購 3% 回饋', description:'國內外網路購物享 3% 現金回饋', category:'購物消費', end_date:'2025-12-31', url:'https://www.esunbank.com.tw', tags:['網購','回饋'], scraped_at:now },
+      { bank:'台新銀行', title:'@GoGo 卡 網路消費 3.5% 回饋', description:'指定網路消費最高 3.5% 現金回饋，含 momo、蝦皮、Uber Eats', category:'購物消費', end_date:'2025-12-31', url:'https://www.taishinbank.com.tw', tags:['網購','外送'], scraped_at:now },
+      { bank:'台新銀行', title:'Richart 生活卡 5% 行動支付', description:'綁定 Apple Pay、Google Pay 消費享 5% 現金回饋', category:'現金回饋', end_date:'2025-12-31', url:'https://www.taishinbank.com.tw', tags:['行動支付','回饋'], scraped_at:now },
+      { bank:'台新銀行', title:'玫瑰卡 百貨滿千送百', description:'指定百貨消費滿 NT$1,000 送 NT$100 購物金', category:'購物消費', end_date:'2025-12-31', url:'https://www.taishinbank.com.tw', tags:['百貨','購物金'], scraped_at:now },
+      { bank:'永豐銀行', title:'大戶卡 海外 2.8% 回饋', description:'海外刷卡消費享 2.8% 現金回饋，每月上限 NT$2,000', category:'現金回饋', end_date:'2025-12-31', url:'https://card.sinopac.com', tags:['海外','回饋'], scraped_at:now },
+      { bank:'永豐銀行', title:'幣倍卡 加密貨幣 2% 回饋', description:'消費享 2% 加密貨幣（BTC/ETH）回饋', category:'其他優惠', end_date:'2025-12-31', url:'https://card.sinopac.com', tags:['加密貨幣','回饋'], scraped_at:now },
+      { bank:'永豐銀行', title:'超市生鮮 5% 回饋', description:'全聯、家樂福、大潤發消費享 5% 現金回饋', category:'生活娛樂', end_date:'2025-12-31', url:'https://card.sinopac.com', tags:['超市','生鮮'], scraped_at:now },
+      { bank:'LINE Bank', title:'LINE Pay 卡 3% LINE POINTS', description:'消費享 3% LINE POINTS 回饋，綁定 LINE Pay 更享額外加碼', category:'點數紅利', end_date:'2025-12-31', url:'https://www.linebank.com.tw', tags:['LINE POINTS','行動支付'], scraped_at:now },
+      { bank:'LINE Bank', title:'現金回饋卡 1.5% 無上限', description:'所有消費不限類別享 1.5% 現金回饋，無月上限', category:'現金回饋', end_date:'2025-12-31', url:'https://www.linebank.com.tw', tags:['現金','回饋'], scraped_at:now },
+      { bank:'LINE Bank', title:'外送平台 5% LINE POINTS', description:'Uber Eats、foodpanda 消費享 5% LINE POINTS 回饋', category:'餐飲美食', end_date:'2025-12-31', url:'https://www.linebank.com.tw', tags:['外送','LINE POINTS'], scraped_at:now },
+    ];
+  }
+
+  // ─── Service Worker ───
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  }
+
+  // ─── Init ───
+  loadOffers();
+</script>
+</body>
+</html>
