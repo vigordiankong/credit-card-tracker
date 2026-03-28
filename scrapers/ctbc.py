@@ -1,6 +1,5 @@
 """
 中國信託 (CTBC) 信用卡優惠爬蟲
-優惠頁面: https://www.ctbcbank.com/twRBank/home/0,,,00.html
 """
 from playwright.async_api import Page
 from typing import List
@@ -12,138 +11,120 @@ class CTBCScraper(BaseScraper):
     BASE_URL = "https://www.ctbcbank.com"
     OFFERS_URL = "https://www.ctbcbank.com/twRBank/tw_col_categ/0,,,00.html"
 
-    # 優惠分類對應
-    CATEGORY_MAP = {
-        "餐飲": "餐飲美食",
-        "購物": "購物消費",
-        "旅遊": "旅遊住宿",
-        "生活": "生活娛樂",
-        "回饋": "現金回饋",
-        "點數": "點數紅利",
-        "加油": "加油交通",
-    }
-
     async def _scrape_page(self, page: Page) -> List[Offer]:
         offers = []
 
-        # 嘗試多個可能的優惠頁面 URL
-        urls_to_try = [
+        # 嘗試多個優惠頁面
+        urls = [
             "https://www.ctbcbank.com/twRBank/tw_col_categ/0,,,00.html",
-            "https://www.ctbcbank.com/content/dam/ctbc-bank/tw/personal/credit-card/",
+            "https://www.ctbcbank.com/twRBank/home/0,,,00.html",
         ]
 
-        for url in urls_to_try:
-            try:
-                await page.goto(url, wait_until="domcontentloaded", timeout=30000)
-                await page.wait_for_timeout(2000)
-
-                # 嘗試找優惠卡片
-                card_selectors = [
-                    ".promo-card", ".offer-card", ".campaign-item",
-                    ".promotion-item", "[class*='promo']", "[class*='offer']",
-                    ".card-item", ".activity-item",
-                ]
-
-                for selector in card_selectors:
-                    cards = await page.query_selector_all(selector)
-                    if cards:
-                        self.logger.info(f"找到 {len(cards)} 個優惠項目 (selector: {selector})")
-                        for card in cards[:20]:  # 最多取 20 筆
-                            offer = await self._parse_card(card, page)
-                            if offer:
-                                offers.append(offer)
-                        break
-
-                if offers:
-                    break
-
-            except Exception as e:
-                self.logger.warning(f"嘗試 {url} 失敗: {e}")
+        for url in urls:
+            ok = await self._goto(page, url, wait=4000)
+            if not ok:
                 continue
 
-        # 若無法爬取，回傳示範資料
-        if not offers:
-            self.logger.warning("使用備用示範資料")
-            offers = self._get_fallback_data()
+            # 策略一：檢查是否攔截到 API
+            for api in self._api_responses:
+                parsed = self._parse_json_offers(api["data"])
+                if parsed:
+                    self.logger.info(f"  ✅ 從 API 解析到 {len(parsed)} 筆")
+                    return parsed
 
-        return offers
+            # 策略二：解析 HTML 卡片
+            selectors = [
+                ".promo-card", ".promotion-card", ".offer-card",
+                ".campaign-item", ".activity-item", ".card-item",
+                "[class*='promo']", "[class*='offer']", "[class*='campaign']",
+                ".credit-card-list li", ".activity-list li",
+            ]
+            cards = await self._find_cards(page, selectors)
 
-    async def _parse_card(self, card, page) -> Offer:
+            for card in cards[:20]:
+                title_el = await card.query_selector(
+                    "h1,h2,h3,h4,h5,.title,[class*='title'],[class*='name']")
+                title = await self._text(title_el)
+                if not title or len(title) < 3:
+                    continue
+
+                desc_el = await card.query_selector("p,.desc,[class*='desc'],[class*='content']")
+                desc = await self._text(desc_el)
+
+                link_el = await card.query_selector("a")
+                url_val = await self._attr(link_el, "href")
+                if url_val and not url_val.startswith("http"):
+                    url_val = self.BASE_URL + url_val
+
+                date_el = await card.query_selector("[class*='date'],time,.period")
+                date_text = await self._text(date_el)
+
+                combined = title + " " + desc
+                offers.append(Offer(
+                    bank=self.BANK_NAME, title=title,
+                    description=desc, category=self._classify(combined),
+                    end_date=date_text, url=url_val or self.OFFERS_URL,
+                    tags=self._tags(combined),
+                ))
+
+            if offers:
+                return offers
+
+            # 策略三：從頁面全文用關鍵字提取
+            page_text = await self._extract_text_offers(page)
+            if page_text:
+                return page_text
+
+        self.logger.warning("  未能從網站取得資料，使用備用資料")
+        return self._get_fallback_data()
+
+    async def _extract_text_offers(self, page: Page) -> List[Offer]:
+        """從頁面取得所有 <a> 連結當作優惠線索"""
         try:
-            title = await self._safe_get_text(
-                await card.query_selector("h1,h2,h3,h4,.title,.name,[class*='title']")
-            ) or "優惠活動"
-
-            desc = await self._safe_get_text(
-                await card.query_selector("p,.desc,.description,[class*='desc']")
-            )
-
-            url = await self._safe_get_attr(
-                await card.query_selector("a"), "href"
-            )
-            if url and not url.startswith("http"):
-                url = self.BASE_URL + url
-
-            date_elem = await card.query_selector("[class*='date'],[class*='period'],time")
-            date_text = await self._safe_get_text(date_elem) if date_elem else ""
-
-            category = self._classify(title + " " + desc)
-
-            return Offer(
-                bank=self.BANK_NAME,
-                title=title,
-                description=desc,
-                category=category,
-                end_date=date_text,
-                url=url or self.OFFERS_URL,
-                tags=self._extract_tags(title + " " + desc),
-            )
-        except Exception as e:
-            self.logger.debug(f"解析卡片失敗: {e}")
-            return None
-
-    def _classify(self, text: str) -> str:
-        for keyword, category in self.CATEGORY_MAP.items():
-            if keyword in text:
-                return category
-        return "其他優惠"
-
-    def _extract_tags(self, text: str) -> List[str]:
-        tags = []
-        keywords = ["回饋", "折扣", "免費", "點數", "里程", "現金", "優惠", "滿額"]
-        for kw in keywords:
-            if kw in text:
-                tags.append(kw)
-        return tags[:3]
+            links = await page.query_selector_all("a[href]")
+            offers = []
+            seen = set()
+            for link in links:
+                text = await self._text(link)
+                href = await self._attr(link, "href")
+                if (len(text) > 8 and len(text) < 60
+                        and text not in seen
+                        and any(kw in text for kw in
+                                ["回饋", "優惠", "折扣", "點數", "免費", "%", "活動"])):
+                    seen.add(text)
+                    if href and not href.startswith("http"):
+                        href = self.BASE_URL + href
+                    combined = text
+                    offers.append(Offer(
+                        bank=self.BANK_NAME, title=text,
+                        category=self._classify(combined),
+                        url=href or self.OFFERS_URL,
+                        tags=self._tags(combined),
+                    ))
+                if len(offers) >= 10:
+                    break
+            return offers
+        except Exception:
+            return []
 
     def _get_fallback_data(self) -> List[Offer]:
-        """備用示範資料（當爬蟲失敗時使用）"""
         return [
-            Offer(
-                bank=self.BANK_NAME,
-                title="中信卡 LINE Pay 最高 6% 回饋",
-                description="使用中信 LINE Pay 聯名卡消費，一般消費享 3% LINE POINTS 回饋，指定通路最高 6%",
-                category="現金回饋",
-                end_date="2025-12-31",
-                url="https://www.ctbcbank.com",
-                tags=["回饋", "LINE Pay", "點數"],
-            ),
-            Offer(
-                bank=self.BANK_NAME,
-                title="海外消費享 3% 現金回饋",
-                description="指定中信卡海外消費享 3% 現金回饋，每月上限 NT$3,000",
-                category="現金回饋",
-                end_date="2025-12-31",
-                url="https://www.ctbcbank.com",
-                tags=["海外", "回饋", "現金"],
-            ),
-            Offer(
-                bank=self.BANK_NAME,
-                title="超商消費享 5% 回饋",
-                description="7-11、全家、萊爾富、OK 四大超商消費，享 5% 現金回饋",
-                category="生活娛樂",
-                end_date="2025-12-31",
-                url="https://www.ctbcbank.com",
-                tags=["超商", "回饋", "生活"],
-            ),
+            Offer(bank=self.BANK_NAME,
+                  title="中信 LINE Pay 最高 16% LINE POINTS 回饋",
+                  description="中信 LINE Pay 聯名卡，指定通路消費最高享 16% LINE POINTS 回饋",
+                  category="點數紅利", end_date="",
+                  url="https://www.ctbcbank.com",
+                  tags=["LINE POINTS", "回饋"]),
+            Offer(bank=self.BANK_NAME,
+                  title="海外消費享 3% 現金回饋",
+                  description="指定中信卡海外消費享 3% 現金回饋",
+                  category="現金回饋", end_date="",
+                  url="https://www.ctbcbank.com",
+                  tags=["海外", "現金", "回饋"]),
+            Offer(bank=self.BANK_NAME,
+                  title="四大超商消費享 5% 回饋",
+                  description="7-11、全家、萊爾富、OK 四大超商消費享 5% 現金回饋",
+                  category="生活娛樂", end_date="",
+                  url="https://www.ctbcbank.com",
+                  tags=["超商", "回饋"]),
         ]
