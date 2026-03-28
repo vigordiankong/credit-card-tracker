@@ -8,11 +8,21 @@ from .base import BaseScraper, Offer
 
 class ESunScraper(BaseScraper):
     BANK_NAME = "玉山銀行"
-    BASE_URL = "https://www.esunbank.com.tw"
-    OFFERS_URL = "https://www.esunbank.com.tw/bank/personal/card/credit-card/offers"
+    BASE_URL = "https://card.esunbank.com.tw"
+    OFFERS_URL = "https://card.esunbank.com.tw/EsunCreditweb/txnservice/identify?PRJCD=ALLACTIV"
 
     async def _scrape_page(self, page: Page) -> List[Offer]:
-        ok = await self._goto(page, self.OFFERS_URL, wait=5000)
+        # 嘗試多個玉山優惠頁面
+        urls = [
+            "https://card.esunbank.com.tw/EsunCreditweb/txnservice/identify?PRJCD=ALLACTIV",
+            "https://event.esunbank.com.tw/credit/",
+            "https://www.esunbank.com.tw/bank/personal/card/credit-card/",
+        ]
+        ok = False
+        for url in urls:
+            ok = await self._goto(page, url, wait=5000)
+            if ok:
+                break
         if not ok:
             return self._get_fallback_data()
 
