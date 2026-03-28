@@ -1,80 +1,112 @@
 {
-  "last_updated": "2026-03-28T14:02:14.944218",
-  "total_count": 25,
-  "real_scraped_banks": 6,
-  "banks": [
-    "中國信託",
-    "國泰世華",
-    "玉山銀行",
-    "台新銀行",
-    "永豐銀行",
-    "LINE Bank"
-  ],
+  "last_updated": "2026-03-28T08:00:00.000000",
+  "total_count": 21,
+  "real_scraped_banks": 0,
+  "banks": ["中國信託", "國泰世華", "玉山銀行", "台新銀行", "永豐銀行", "LINE Bank"],
   "summary": {
-    "中國信託": 1,
+    "中國信託": 3,
     "國泰世華": 3,
-    "玉山銀行": 3,
-    "台新銀行": 12,
+    "玉山銀行": 4,
+    "台新銀行": 4,
     "永豐銀行": 3,
-    "LINE Bank": 3
+    "LINE Bank": 4
   },
   "offers": [
     {
       "bank": "中國信託",
-      "title": "QR Code掃描說明",
-      "description": "請開啟中信行動銀行App，於「我的」頁面點擊右上角掃碼 ICON 進行掃碼，將可於已認證裝置使用指紋/圖形或臉部辨識登入網路銀行。（手機版網路銀行請直接點選 QR Code 即可開啟中信行動銀行App 進行驗證）<br>\r\n若尚未啟用此功能，可先登入中信行動銀行App「個人設定&gt;簡易登入設定」中啟用。",
-      "category": "其他優惠",
+      "title": "LINE Pay 卡最高享 16% LINE POINTS 回饋",
+      "description": "中信 LINE Pay 聯名卡，指定通路消費最高享 16% LINE POINTS 回饋，一般消費 3% 起",
+      "category": "點數紅利",
+      "start_date": "2026-01-01",
+      "end_date": "2026-06-30",
+      "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
+      "image_url": "",
+      "tags": ["LINE POINTS", "回饋", "聯名卡"],
+      "scraped_at": "2026-03-28T08:00:00.000000"
+    },
+    {
+      "bank": "中國信託",
+      "title": "Agoda 聯名卡訂房最高 7% 回饋",
+      "description": "中信 Agoda 聯名卡，國外實體店面消費享加碼 4.5% 刷卡金，最高 7% 回饋",
+      "category": "旅遊住宿",
+      "start_date": "2026-01-01",
+      "end_date": "2026-06-30",
+      "url": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/AgodaCard/event.html",
+      "image_url": "",
+      "tags": ["訂房", "旅遊", "回饋"],
+      "scraped_at": "2026-03-28T08:00:00.000000"
+    },
+    {
+      "bank": "中國信託",
+      "title": "四大超商消費享 5% 現金回饋",
+      "description": "7-11、全家、萊爾富、OK 四大超商消費，享 5% 現金回饋",
+      "category": "生活娛樂",
       "start_date": "",
       "end_date": "",
-      "url": "https://www.ctbcbank.com/twRBank/tw_col_categ/0,,,00.html",
+      "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
-      "tags": [],
-      "scraped_at": "2026-03-28T14:01:01.720180"
+      "tags": ["超商", "回饋", "現金"],
+      "scraped_at": "2026-03-28T08:00:00.000000"
     },
     {
       "bank": "國泰世華",
-      "title": "CUBE 卡自選回饋最高 6%",
+      "title": "CUBE 卡自選類別最高 6% 回饋",
       "description": "國泰 CUBE 卡綁定 CUBE App，自選消費類別最高 6% 現金回饋",
       "category": "現金回饋",
       "start_date": "",
       "end_date": "",
-      "url": "https://www.cathaybk.com.tw/cathaybk/personal/activity/credit-card-promotion/",
+      "url": "https://www.cathay-cube.com.tw/cathaybk/personal/event/overview/",
       "image_url": "",
-      "tags": [
-        "CUBE",
-        "回饋"
-      ],
-      "scraped_at": "2026-03-28T14:01:23.097301"
+      "tags": ["CUBE", "回饋", "自選"],
+      "scraped_at": "2026-03-28T08:00:00.000000"
+    },
+    {
+      "bank": "國泰世華",
+      "title": "保費最高 1.2% 回饋或 12 期 0 利率",
+      "description": "刷 CUBE 信用卡繳保費最高 1.2% 回饋或 12 期 0 利率，2026 年全年適用",
+      "category": "其他優惠",
+      "start_date": "2026-01-01",
+      "end_date": "2026-12-31",
+      "url": "https://www.cathay-cube.com.tw/cathaybk/personal/event/overview/credit-card/payment/2026/2026insh1",
+      "image_url": "",
+      "tags": ["保費", "分期", "回饋"],
+      "scraped_at": "2026-03-28T08:00:00.000000"
     },
     {
       "bank": "國泰世華",
       "title": "Costco 聯名卡 1.5% 現金回饋",
-      "description": "所有消費享 1.5% 現金回饋，年末一次退還",
+      "description": "所有消費享 1.5% 現金回饋，年末一次退還，無消費類別限制",
       "category": "現金回饋",
       "start_date": "",
       "end_date": "",
-      "url": "https://www.cathaybk.com.tw/cathaybk/personal/activity/credit-card-promotion/",
+      "url": "https://www.cathay-cube.com.tw/cathaybk/personal/event/overview/",
       "image_url": "",
-      "tags": [
-        "Costco",
-        "現金"
-      ],
-      "scraped_at": "2026-03-28T14:01:23.097309"
+      "tags": ["Costco", "現金", "回饋"],
+      "scraped_at": "2026-03-28T08:00:00.000000"
     },
     {
-      "bank": "國泰世華",
-      "title": "海外及網購 3% 回饋",
-      "description": "海外刷卡及網路購物享 3% 現金回饋",
-      "category": "購物消費",
-      "start_date": "",
-      "end_date": "",
-      "url": "https://www.cathaybk.com.tw/cathaybk/personal/activity/credit-card-promotion/",
+      "bank": "玉山銀行",
+      "title": "旅遊消費滿額最高 4,000 元回饋（2026 Q1）",
+      "description": "2026 年 1~3 月玉山信用卡旅遊消費滿額最高享 4,000 元回饋，5 月 15 日起退還",
+      "category": "旅遊住宿",
+      "start_date": "2026-01-01",
+      "end_date": "2026-03-31",
+      "url": "https://event.esunbank.com.tw/credit/travel-campaign/index.html",
       "image_url": "",
-      "tags": [
-        "海外",
-        "網購"
-      ],
-      "scraped_at": "2026-03-28T14:01:23.097312"
+      "tags": ["旅遊", "回饋", "滿額"],
+      "scraped_at": "2026-03-28T08:00:00.000000"
+    },
+    {
+      "bank": "玉山銀行",
+      "title": "繳牌照稅享 0.2% 回饋或 3 期 0 利率",
+      "description": "玉山信用卡繳牌照稅享 0.2% 玉山 e point 回饋或 3 期 0 利率，登錄期 4/25~4/30",
+      "category": "加油交通",
+      "start_date": "2026-03-25",
+      "end_date": "2026-04-30",
+      "url": "https://event.esunbank.com.tw/credit/cartax/index.html",
+      "image_url": "",
+      "tags": ["牌照稅", "分期", "回饋"],
+      "scraped_at": "2026-03-28T08:00:00.000000"
     },
     {
       "bank": "玉山銀行",
@@ -83,277 +115,154 @@
       "category": "點數紅利",
       "start_date": "",
       "end_date": "",
-      "url": "https://card.esunbank.com.tw/EsunCreditweb/txnservice/identify?PRJCD=ALLACTIV",
+      "url": "https://event.esunbank.com.tw/credit/",
       "image_url": "",
-      "tags": [
-        "Pi幣",
-        "行動支付"
-      ],
-      "scraped_at": "2026-03-28T14:01:33.561551"
+      "tags": ["Pi幣", "行動支付", "回饋"],
+      "scraped_at": "2026-03-28T08:00:00.000000"
     },
     {
       "bank": "玉山銀行",
-      "title": "U Bear 卡指定通路最高 6% 回饋",
-      "description": "指定超商、外送平台最高 6% 現金回饋",
+      "title": "全支付綁卡首次消費享回饋",
+      "description": "活動期間首次綁定玉山信用卡至全支付並消費享回饋，每週限量 600 名",
       "category": "生活娛樂",
+      "start_date": "2026-01-01",
+      "end_date": "2026-06-28",
+      "url": "https://event.esunbank.com.tw/credit/",
+      "image_url": "",
+      "tags": ["全支付", "行動支付", "回饋"],
+      "scraped_at": "2026-03-28T08:00:00.000000"
+    },
+    {
+      "bank": "台新銀行",
+      "title": "Mastercard 海外消費最高 14.3% 回饋",
+      "description": "刷台新 Mastercard 海外消費享最高 14.3% 回饋，活動期間 2026/01/01~06/30",
+      "category": "現金回饋",
+      "start_date": "2026-01-01",
+      "end_date": "2026-06-30",
+      "url": "https://mkpcard.taishinbank.com.tw/",
+      "image_url": "",
+      "tags": ["海外", "Mastercard", "回饋"],
+      "scraped_at": "2026-03-28T08:00:00.000000"
+    },
+    {
+      "bank": "台新銀行",
+      "title": "momo 女王節 Richart 卡最高 9.3% 回饋",
+      "description": "2026/3/1~3/31 在 momo 購物刷台新 Richart 卡享最高 9.3% 回饋",
+      "category": "購物消費",
+      "start_date": "2026-03-01",
+      "end_date": "2026-03-31",
+      "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/E",
+      "image_url": "",
+      "tags": ["momo", "回饋", "購物"],
+      "scraped_at": "2026-03-28T08:00:00.000000"
+    },
+    {
+      "bank": "台新銀行",
+      "title": "台北捷運感應刷卡最高 10 次免費",
+      "description": "2026/1/3~6/30 台北捷運刷台新卡感應或台新 Pay 掃碼最高 10 次免費或 3.8% 回饋",
+      "category": "加油交通",
+      "start_date": "2026-01-03",
+      "end_date": "2026-06-30",
+      "url": "https://mkpcard.taishinbank.com.tw/",
+      "image_url": "",
+      "tags": ["捷運", "交通", "免費"],
+      "scraped_at": "2026-03-28T08:00:00.000000"
+    },
+    {
+      "bank": "台新銀行",
+      "title": "PChome 精選網購最高 8% 回饋",
+      "description": "PChome 購物刷台新信用卡最高 8% 分期回饋",
+      "category": "購物消費",
+      "start_date": "2026-01-12",
+      "end_date": "2026-06-30",
+      "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/detail/WM_20260112170903277",
+      "image_url": "",
+      "tags": ["PChome", "網購", "回饋"],
+      "scraped_at": "2026-03-28T08:00:00.000000"
+    },
+    {
+      "bank": "永豐銀行",
+      "title": "快馬巔峰：馬上衝刺登錄回饋無上限",
+      "description": "永豐信用卡「快馬巔峰」活動，登錄後消費享回饋無上限",
+      "category": "現金回饋",
       "start_date": "",
       "end_date": "",
-      "url": "https://card.esunbank.com.tw/EsunCreditweb/txnservice/identify?PRJCD=ALLACTIV",
+      "url": "https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/751954295.html",
       "image_url": "",
-      "tags": [
-        "超商",
-        "外送"
-      ],
-      "scraped_at": "2026-03-28T14:01:33.561560"
+      "tags": ["回饋", "登錄", "無上限"],
+      "scraped_at": "2026-03-28T08:00:00.000000"
     },
     {
-      "bank": "玉山銀行",
-      "title": "Only 卡網路購物 3% 回饋",
-      "description": "國內外網路購物享 3% 現金回饋",
+      "bank": "永豐銀行",
+      "title": "旅遊優惠輕鬆享：飯店海外消費好康",
+      "description": "旅行社、航空、旅遊平台、飯店、海外消費等享好康優惠，刷永豐越玩越輕鬆",
+      "category": "旅遊住宿",
+      "start_date": "",
+      "end_date": "",
+      "url": "https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/list.html",
+      "image_url": "",
+      "tags": ["旅遊", "飯店", "海外"],
+      "scraped_at": "2026-03-28T08:00:00.000000"
+    },
+    {
+      "bank": "永豐銀行",
+      "title": "精選網購/電視購物滿額享優惠",
+      "description": "各大精選網購、電視購物刷永豐信用卡，消費滿額享刷卡金回饋",
       "category": "購物消費",
       "start_date": "",
       "end_date": "",
-      "url": "https://card.esunbank.com.tw/EsunCreditweb/txnservice/identify?PRJCD=ALLACTIV",
+      "url": "https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/354768986.html",
       "image_url": "",
-      "tags": [
-        "網購",
-        "回饋"
-      ],
-      "scraped_at": "2026-03-28T14:01:33.561565"
+      "tags": ["網購", "電視購物", "回饋"],
+      "scraped_at": "2026-03-28T08:00:00.000000"
     },
     {
-      "bank": "台新銀行",
-      "title": "LINE Pay享最高3.8%，Pay著刷Richart卡",
-      "description": "",
-      "category": "其他優惠",
+      "bank": "LINE Bank",
+      "title": "快點卡週週最高 15% 回饋",
+      "description": "LINE Bank 快點卡 2026 年百萬商戶消費享週週最高 15% 重磅優惠活動",
+      "category": "現金回饋",
+      "start_date": "2026-01-01",
+      "end_date": "2026-12-31",
+      "url": "https://corp.linebank.com.tw/news/e26d9e74-5e73-4923-b4a6-bdafaa72bcf2",
+      "image_url": "",
+      "tags": ["回饋", "快點卡", "週週"],
+      "scraped_at": "2026-03-28T08:00:00.000000"
+    },
+    {
+      "bank": "LINE Bank",
+      "title": "聯名信用卡自動扣繳最高回饋 NT$600",
+      "description": "首次申辦 LINE Bank 聯名信用卡，透過主帳戶自動扣繳享 5% 回饋，總計最高 NT$600",
+      "category": "現金回饋",
+      "start_date": "2025-08-01",
+      "end_date": "2026-07-31",
+      "url": "https://event.linebank.com.tw/marketing/cobrandcards/",
+      "image_url": "",
+      "tags": ["聯名卡", "回饋", "扣繳"],
+      "scraped_at": "2026-03-28T08:00:00.000000"
+    },
+    {
+      "bank": "LINE Bank",
+      "title": "Trip.com 日韓機票立享 15% 現折",
+      "description": "刷 LINE Bank 快點卡訂 Trip.com 日韓機票立享 15% 現折優惠",
+      "category": "旅遊住宿",
       "start_date": "",
       "end_date": "",
-      "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I",
+      "url": "https://event.linebank.com.tw/marketing/cobrandcards/",
       "image_url": "",
-      "tags": [],
-      "scraped_at": "2026-03-28T14:01:47.821761"
+      "tags": ["機票", "旅遊", "折扣"],
+      "scraped_at": "2026-03-28T08:00:00.000000"
     },
     {
-      "bank": "台新銀行",
-      "title": "健身/保健補給最高5%，假日刷Richart卡",
-      "description": "",
-      "category": "其他優惠",
-      "start_date": "",
-      "end_date": "",
-      "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I",
-      "image_url": "",
-      "tags": [],
-      "scraped_at": "2026-03-28T14:01:47.837506"
-    },
-    {
-      "bank": "台新銀行",
-      "title": "國內節假日，不限通路享最高2%，假日刷Richart卡",
-      "description": "",
-      "category": "其他優惠",
-      "start_date": "",
-      "end_date": "",
-      "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I",
-      "image_url": "",
-      "tags": [],
-      "scraped_at": "2026-03-28T14:01:47.851826"
-    },
-    {
-      "bank": "台新銀行",
-      "title": "立即推薦好友辦卡，達檻加碼送iPhone 17！",
-      "description": "",
-      "category": "其他優惠",
-      "start_date": "",
-      "end_date": "",
-      "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I",
-      "image_url": "",
-      "tags": [],
-      "scraped_at": "2026-03-28T14:01:47.865482"
-    },
-    {
-      "bank": "台新銀行",
-      "title": "臺北台新戰神：主場購票13.8%，Pay著刷Richart卡",
-      "description": "",
-      "category": "其他優惠",
-      "start_date": "",
-      "end_date": "",
-      "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I",
-      "image_url": "",
-      "tags": [],
-      "scraped_at": "2026-03-28T14:01:47.879688"
-    },
-    {
-      "bank": "台新銀行",
-      "title": "費思特/安緹雅SPA1,099元起，Richart卡再享2%",
-      "description": "",
-      "category": "其他優惠",
-      "start_date": "",
-      "end_date": "",
-      "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I",
-      "image_url": "",
-      "tags": [],
-      "scraped_at": "2026-03-28T14:01:47.893755"
-    },
-    {
-      "bank": "台新銀行",
-      "title": "情人節玩測驗抽iPhone 17 x 新戶首刷好禮二選一",
-      "description": "",
-      "category": "其他優惠",
-      "start_date": "",
-      "end_date": "",
-      "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I",
-      "image_url": "",
-      "tags": [],
-      "scraped_at": "2026-03-28T14:01:47.907384"
-    },
-    {
-      "bank": "台新銀行",
-      "title": "IKEA賀新年，享最高3.8%",
-      "description": "",
-      "category": "其他優惠",
-      "start_date": "",
-      "end_date": "",
-      "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I",
-      "image_url": "",
-      "tags": [],
-      "scraped_at": "2026-03-28T14:01:47.920235"
-    },
-    {
-      "bank": "台新銀行",
-      "title": "丁丁藥局享最高3.3%，天天刷Richart卡",
-      "description": "",
-      "category": "其他優惠",
-      "start_date": "",
-      "end_date": "",
-      "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I",
-      "image_url": "",
-      "tags": [],
-      "scraped_at": "2026-03-28T14:01:47.933183"
-    },
-    {
-      "bank": "台新銀行",
-      "title": "指定直銷通路最高5%，領續航券假日刷Richart卡",
-      "description": "",
-      "category": "其他優惠",
-      "start_date": "",
-      "end_date": "",
-      "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I",
-      "image_url": "",
-      "tags": [],
-      "scraped_at": "2026-03-28T14:01:47.946355"
-    },
-    {
-      "bank": "台新銀行",
-      "title": "守護健康就到大樹藥局：天天刷Richart卡，享最高3.3%",
-      "description": "",
-      "category": "其他優惠",
-      "start_date": "",
-      "end_date": "",
-      "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I",
-      "image_url": "",
-      "tags": [],
-      "scraped_at": "2026-03-28T14:01:47.959835"
-    },
-    {
-      "bank": "台新銀行",
-      "title": "捐款【喜憨兒基金會】最高2.3%，Pay著刷Richart卡",
-      "description": "",
-      "category": "其他優惠",
-      "start_date": "",
-      "end_date": "",
-      "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I",
-      "image_url": "",
-      "tags": [],
-      "scraped_at": "2026-03-28T14:01:47.976340"
-    },
-    {
-      "bank": "永豐銀行",
-      "title": "大戶卡海外消費 2.8% 回饋",
-      "description": "海外刷卡消費享 2.8% 現金回饋",
+      "bank": "LINE Bank",
+      "title": "快點買 YOLO / 快點吃 TGIF 滿額飆 4%",
+      "description": "指定消費類別滿額回饋飆 4%；挺環保「綠能尖兵」滿額飆 6%",
       "category": "現金回饋",
       "start_date": "",
       "end_date": "",
-      "url": "https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/list.html",
+      "url": "https://event.linebank.com.tw/marketing/cobrandcards/",
       "image_url": "",
-      "tags": [
-        "海外",
-        "回饋"
-      ],
-      "scraped_at": "2026-03-28T14:01:58.260364"
-    },
-    {
-      "bank": "永豐銀行",
-      "title": "幣倍卡加密貨幣 2% 回饋",
-      "description": "消費享 2% 加密貨幣（BTC/ETH）回饋",
-      "category": "其他優惠",
-      "start_date": "",
-      "end_date": "",
-      "url": "https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/list.html",
-      "image_url": "",
-      "tags": [
-        "加密貨幣",
-        "回饋"
-      ],
-      "scraped_at": "2026-03-28T14:01:58.260372"
-    },
-    {
-      "bank": "永豐銀行",
-      "title": "全聯/家樂福超市生鮮 5% 回饋",
-      "description": "全聯、家樂福、大潤發消費享 5% 現金回饋",
-      "category": "生活娛樂",
-      "start_date": "",
-      "end_date": "",
-      "url": "https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/list.html",
-      "image_url": "",
-      "tags": [
-        "超市",
-        "生鮮"
-      ],
-      "scraped_at": "2026-03-28T14:01:58.260374"
-    },
-    {
-      "bank": "LINE Bank",
-      "title": "LINE Pay 卡最高 3% LINE POINTS",
-      "description": "消費享 3% LINE POINTS 回饋，綁定 LINE Pay 更享加碼",
-      "category": "點數紅利",
-      "start_date": "",
-      "end_date": "",
-      "url": "https://www.linebank.com.tw/creditcard/promotion",
-      "image_url": "",
-      "tags": [
-        "LINE POINTS",
-        "行動支付"
-      ],
-      "scraped_at": "2026-03-28T14:02:12.901174"
-    },
-    {
-      "bank": "LINE Bank",
-      "title": "現金回饋卡 1.5% 無上限",
-      "description": "所有消費不限類別享 1.5% 現金回饋",
-      "category": "現金回饋",
-      "start_date": "",
-      "end_date": "",
-      "url": "https://www.linebank.com.tw/creditcard/promotion",
-      "image_url": "",
-      "tags": [
-        "現金",
-        "回饋"
-      ],
-      "scraped_at": "2026-03-28T14:02:12.901187"
-    },
-    {
-      "bank": "LINE Bank",
-      "title": "外送平台 5% LINE POINTS 回饋",
-      "description": "Uber Eats、foodpanda 消費享 5% LINE POINTS",
-      "category": "餐飲美食",
-      "start_date": "",
-      "end_date": "",
-      "url": "https://www.linebank.com.tw/creditcard/promotion",
-      "image_url": "",
-      "tags": [
-        "外送",
-        "LINE POINTS"
-      ],
-      "scraped_at": "2026-03-28T14:02:12.901192"
+      "tags": ["回饋", "滿額", "快點卡"],
+      "scraped_at": "2026-03-28T08:00:00.000000"
     }
   ]
 }
