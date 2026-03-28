@@ -8,11 +8,19 @@ from .base import BaseScraper, Offer
 
 class SinoPacScraper(BaseScraper):
     BANK_NAME = "永豐銀行"
-    BASE_URL = "https://card.sinopac.com"
-    OFFERS_URL = "https://card.sinopac.com/sinopaccard/card/promo/allPromo.html"
+    BASE_URL = "https://bank.sinopac.com"
+    OFFERS_URL = "https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/list.html"
 
     async def _scrape_page(self, page: Page) -> List[Offer]:
-        ok = await self._goto(page, self.OFFERS_URL, wait=5000)
+        urls = [
+            "https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/list.html",
+            "https://bank.sinopac.com/sinopacBT/personal/credit-card.html",
+        ]
+        ok = False
+        for url in urls:
+            ok = await self._goto(page, url, wait=5000)
+            if ok:
+                break
         if not ok:
             return self._get_fallback_data()
 
