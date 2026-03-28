@@ -29,8 +29,9 @@ jobs:
 
       - name: 📦 安裝相依套件
         run: |
-          pip install -r requirements.txt
-          playwright install chromium --with-deps
+          pip install playwright
+          python -m playwright install chromium
+          python -m playwright install-deps chromium
 
       - name: 🕷️ 執行爬蟲
         run: python main.py
