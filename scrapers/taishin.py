@@ -8,15 +8,25 @@ from .base import BaseScraper, Offer
 
 class TaishinScraper(BaseScraper):
     BANK_NAME = "台新銀行"
-    BASE_URL = "https://www.taishinbank.com.tw"
-    OFFERS_URL = "https://www.taishinbank.com.tw/TSB/personal/credit/discounts/overview/"
+    BASE_URL = "https://mkpcard.taishinbank.com.tw"
+    OFFERS_URL = "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I"
 
     async def _scrape_page(self, page: Page) -> List[Offer]:
-        ok = await self._goto(page, self.OFFERS_URL, wait=5000)
+        # 台新優惠專頁（依類別）
+        urls = [
+            "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I",
+            "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/E",
+            "https://mkpcard.taishinbank.com.tw/",
+            "https://www.taishinbank.com.tw/TSB/personal/common/bonus/",
+        ]
+        ok = False
+        for url in urls:
+            ok = await self._goto(page, url, wait=5000)
+            if ok:
+                break
         if not ok:
             return self._get_fallback_data()
 
-        # 台新網站 React 架構，等待完整載入
         await page.wait_for_timeout(2000)
 
         # 策略一：API
