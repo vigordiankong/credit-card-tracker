@@ -1,0 +1,56 @@
+name: 🚀 部署到 GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'frontend/**'
+      - 'data/**'
+  workflow_run:
+    workflows: ["🕷️ 每日爬取信用卡優惠"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: 部署前端
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 📁 準備部署資料夾
+        run: |
+          mkdir -p _site
+          # 複製前端檔案
+          cp -r frontend/. _site/
+          # 複製資料檔案
+          mkdir -p _site/data
+          cp -r data/. _site/data/
+          echo "=== 部署內容 ==="
+          ls -la _site/
+
+      - name: ⚙️ 設定 GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: 📤 上傳到 Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '_site'
+
+      - name: 🚀 部署
+        id: deployment
+        uses: actions/deploy-pages@v4
