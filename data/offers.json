@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-04-16T06:25:12.258886",
-  "total_count": 57,
+  "last_updated": "2026-04-17T06:25:00.188849",
+  "total_count": 58,
   "real_scraped_banks": 6,
   "banks": [
     "中國信託",
@@ -16,7 +16,7 @@
     "玉山銀行": 3,
     "台新銀行": 12,
     "永豐銀行": 3,
-    "LINE Bank": 3
+    "LINE Bank": 4
   },
   "offers": [
     {
@@ -29,7 +29,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986096"
+      "scraped_at": "2026-04-17T06:23:33.835417"
     },
     {
       "bank": "中國信託",
@@ -41,7 +41,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986130"
+      "scraped_at": "2026-04-17T06:23:33.835445"
     },
     {
       "bank": "中國信託",
@@ -53,7 +53,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986148"
+      "scraped_at": "2026-04-17T06:23:33.835459"
     },
     {
       "bank": "中國信託",
@@ -65,7 +65,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986164"
+      "scraped_at": "2026-04-17T06:23:33.835471"
     },
     {
       "bank": "中國信託",
@@ -77,7 +77,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986188"
+      "scraped_at": "2026-04-17T06:23:33.835489"
     },
     {
       "bank": "中國信託",
@@ -89,7 +89,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986204"
+      "scraped_at": "2026-04-17T06:23:33.835502"
     },
     {
       "bank": "中國信託",
@@ -101,7 +101,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986222"
+      "scraped_at": "2026-04-17T06:23:33.835514"
     },
     {
       "bank": "中國信託",
@@ -113,7 +113,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986244"
+      "scraped_at": "2026-04-17T06:23:33.835529"
     },
     {
       "bank": "中國信託",
@@ -125,7 +125,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986263"
+      "scraped_at": "2026-04-17T06:23:33.835542"
     },
     {
       "bank": "中國信託",
@@ -137,7 +137,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986278"
+      "scraped_at": "2026-04-17T06:23:33.835553"
     },
     {
       "bank": "中國信託",
@@ -149,7 +149,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986293"
+      "scraped_at": "2026-04-17T06:23:33.835564"
     },
     {
       "bank": "中國信託",
@@ -161,7 +161,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986307"
+      "scraped_at": "2026-04-17T06:23:33.835574"
     },
     {
       "bank": "中國信託",
@@ -173,7 +173,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986323"
+      "scraped_at": "2026-04-17T06:23:33.835584"
     },
     {
       "bank": "中國信託",
@@ -185,7 +185,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986340"
+      "scraped_at": "2026-04-17T06:23:33.835595"
     },
     {
       "bank": "中國信託",
@@ -197,7 +197,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986356"
+      "scraped_at": "2026-04-17T06:23:33.835605"
     },
     {
       "bank": "中國信託",
@@ -209,7 +209,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986375"
+      "scraped_at": "2026-04-17T06:23:33.835617"
     },
     {
       "bank": "中國信託",
@@ -221,7 +221,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986392"
+      "scraped_at": "2026-04-17T06:23:33.835628"
     },
     {
       "bank": "中國信託",
@@ -233,7 +233,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986409"
+      "scraped_at": "2026-04-17T06:23:33.835638"
     },
     {
       "bank": "中國信託",
@@ -245,7 +245,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986426"
+      "scraped_at": "2026-04-17T06:23:33.835649"
     },
     {
       "bank": "中國信託",
@@ -257,7 +257,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986440"
+      "scraped_at": "2026-04-17T06:23:33.835659"
     },
     {
       "bank": "中國信託",
@@ -269,7 +269,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986453"
+      "scraped_at": "2026-04-17T06:23:33.835670"
     },
     {
       "bank": "中國信託",
@@ -281,7 +281,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986467"
+      "scraped_at": "2026-04-17T06:23:33.835681"
     },
     {
       "bank": "中國信託",
@@ -293,7 +293,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986481"
+      "scraped_at": "2026-04-17T06:23:33.835691"
     },
     {
       "bank": "中國信託",
@@ -307,7 +307,7 @@
       "tags": [
         "優惠"
       ],
-      "scraped_at": "2026-04-16T06:23:42.986495"
+      "scraped_at": "2026-04-17T06:23:33.835703"
     },
     {
       "bank": "中國信託",
@@ -321,7 +321,7 @@
       "tags": [
         "優惠"
       ],
-      "scraped_at": "2026-04-16T06:23:42.986510"
+      "scraped_at": "2026-04-17T06:23:33.835714"
     },
     {
       "bank": "中國信託",
@@ -335,7 +335,7 @@
       "tags": [
         "優惠"
       ],
-      "scraped_at": "2026-04-16T06:23:42.986524"
+      "scraped_at": "2026-04-17T06:23:33.835724"
     },
     {
       "bank": "中國信託",
@@ -349,7 +349,7 @@
       "tags": [
         "優惠"
       ],
-      "scraped_at": "2026-04-16T06:23:42.986537"
+      "scraped_at": "2026-04-17T06:23:33.835736"
     },
     {
       "bank": "中國信託",
@@ -363,7 +363,7 @@
       "tags": [
         "優惠"
       ],
-      "scraped_at": "2026-04-16T06:23:42.986552"
+      "scraped_at": "2026-04-17T06:23:33.835778"
     },
     {
       "bank": "中國信託",
@@ -377,7 +377,7 @@
       "tags": [
         "優惠"
       ],
-      "scraped_at": "2026-04-16T06:23:42.986569"
+      "scraped_at": "2026-04-17T06:23:33.835790"
     },
     {
       "bank": "中國信託",
@@ -389,7 +389,7 @@
       "url": "https://www.ctbcbank.com/twrbo/zh_tw/cc_index/cc_offer/cc_special_offer.html",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:23:42.986580"
+      "scraped_at": "2026-04-17T06:23:33.835797"
     },
     {
       "bank": "國泰世華",
@@ -405,7 +405,7 @@
         "OPEN錢包",
         "OPENPOINT"
       ],
-      "scraped_at": "2026-04-16T06:24:10.947744"
+      "scraped_at": "2026-04-17T06:24:01.454696"
     },
     {
       "bank": "國泰世華",
@@ -421,7 +421,7 @@
         "CUBE",
         "回饋"
       ],
-      "scraped_at": "2026-04-16T06:24:10.947752"
+      "scraped_at": "2026-04-17T06:24:01.454703"
     },
     {
       "bank": "國泰世華",
@@ -436,7 +436,7 @@
         "CUBE",
         "回饋"
       ],
-      "scraped_at": "2026-04-16T06:24:10.947757"
+      "scraped_at": "2026-04-17T06:24:01.454705"
     },
     {
       "bank": "國泰世華",
@@ -451,7 +451,7 @@
         "Costco",
         "現金"
       ],
-      "scraped_at": "2026-04-16T06:24:10.947761"
+      "scraped_at": "2026-04-17T06:24:01.454713"
     },
     {
       "bank": "國泰世華",
@@ -466,7 +466,7 @@
         "大樹藥局",
         "小樹點"
       ],
-      "scraped_at": "2026-04-16T06:24:10.947765"
+      "scraped_at": "2026-04-17T06:24:01.454717"
     },
     {
       "bank": "國泰世華",
@@ -482,7 +482,7 @@
         "網購",
         "小樹點"
       ],
-      "scraped_at": "2026-04-16T06:24:10.947768"
+      "scraped_at": "2026-04-17T06:24:01.454721"
     },
     {
       "bank": "玉山銀行",
@@ -497,7 +497,7 @@
         "Pi幣",
         "行動支付"
       ],
-      "scraped_at": "2026-04-16T06:24:23.333583"
+      "scraped_at": "2026-04-17T06:24:12.494577"
     },
     {
       "bank": "玉山銀行",
@@ -512,7 +512,7 @@
         "超商",
         "外送"
       ],
-      "scraped_at": "2026-04-16T06:24:23.333591"
+      "scraped_at": "2026-04-17T06:24:12.494584"
     },
     {
       "bank": "玉山銀行",
@@ -527,7 +527,7 @@
         "網購",
         "回饋"
       ],
-      "scraped_at": "2026-04-16T06:24:23.333593"
+      "scraped_at": "2026-04-17T06:24:12.494586"
     },
     {
       "bank": "台新銀行",
@@ -539,7 +539,7 @@
       "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:24:36.253126"
+      "scraped_at": "2026-04-17T06:24:24.706666"
     },
     {
       "bank": "台新銀行",
@@ -551,7 +551,7 @@
       "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:24:36.267900"
+      "scraped_at": "2026-04-17T06:24:24.721257"
     },
     {
       "bank": "台新銀行",
@@ -563,7 +563,7 @@
       "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:24:36.283181"
+      "scraped_at": "2026-04-17T06:24:24.736974"
     },
     {
       "bank": "台新銀行",
@@ -575,7 +575,7 @@
       "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:24:36.297097"
+      "scraped_at": "2026-04-17T06:24:24.751435"
     },
     {
       "bank": "台新銀行",
@@ -587,7 +587,7 @@
       "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:24:36.312000"
+      "scraped_at": "2026-04-17T06:24:24.765650"
     },
     {
       "bank": "台新銀行",
@@ -601,7 +601,7 @@
       "tags": [
         "回饋"
       ],
-      "scraped_at": "2026-04-16T06:24:36.326298"
+      "scraped_at": "2026-04-17T06:24:24.780252"
     },
     {
       "bank": "台新銀行",
@@ -613,7 +613,7 @@
       "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:24:36.340290"
+      "scraped_at": "2026-04-17T06:24:24.794362"
     },
     {
       "bank": "台新銀行",
@@ -625,7 +625,7 @@
       "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:24:36.354894"
+      "scraped_at": "2026-04-17T06:24:24.808599"
     },
     {
       "bank": "台新銀行",
@@ -637,7 +637,7 @@
       "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:24:36.368885"
+      "scraped_at": "2026-04-17T06:24:24.822971"
     },
     {
       "bank": "台新銀行",
@@ -649,7 +649,7 @@
       "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:24:36.382662"
+      "scraped_at": "2026-04-17T06:24:24.836873"
     },
     {
       "bank": "台新銀行",
@@ -661,7 +661,7 @@
       "url": "https://mkpcard.taishinbank.com.tw/tscccms/promotion/offerList/I",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:24:36.396254"
+      "scraped_at": "2026-04-17T06:24:24.850483"
     },
     {
       "bank": "台新銀行",
@@ -675,7 +675,7 @@
       "tags": [
         "滿額"
       ],
-      "scraped_at": "2026-04-16T06:24:36.409797"
+      "scraped_at": "2026-04-17T06:24:24.864248"
     },
     {
       "bank": "永豐銀行",
@@ -690,7 +690,7 @@
         "海外",
         "回饋"
       ],
-      "scraped_at": "2026-04-16T06:24:46.374998"
+      "scraped_at": "2026-04-17T06:24:34.430849"
     },
     {
       "bank": "永豐銀行",
@@ -705,7 +705,7 @@
         "加密貨幣",
         "回饋"
       ],
-      "scraped_at": "2026-04-16T06:24:46.375008"
+      "scraped_at": "2026-04-17T06:24:34.430859"
     },
     {
       "bank": "永豐銀行",
@@ -720,11 +720,11 @@
         "超市",
         "生鮮"
       ],
-      "scraped_at": "2026-04-16T06:24:46.375012"
+      "scraped_at": "2026-04-17T06:24:34.430863"
     },
     {
       "bank": "LINE Bank",
-      "title": "financialPage",
+      "title": "產品服務",
       "description": "",
       "category": "其他優惠",
       "start_date": "",
@@ -732,11 +732,11 @@
       "url": "https://event.linebank.com.tw/marketing/cobrandcards/",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:25:10.188166"
+      "scraped_at": "2026-04-17T06:24:58.143285"
     },
     {
       "bank": "LINE Bank",
-      "title": "ibkBtn",
+      "title": "品牌活動",
       "description": "",
       "category": "其他優惠",
       "start_date": "",
@@ -744,11 +744,11 @@
       "url": "https://event.linebank.com.tw/marketing/cobrandcards/",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:25:10.188185"
+      "scraped_at": "2026-04-17T06:24:58.143305"
     },
     {
       "bank": "LINE Bank",
-      "title": "footer",
+      "title": "營運消息",
       "description": "",
       "category": "其他優惠",
       "start_date": "",
@@ -756,7 +756,19 @@
       "url": "https://event.linebank.com.tw/marketing/cobrandcards/",
       "image_url": "",
       "tags": [],
-      "scraped_at": "2026-04-16T06:25:10.188194"
+      "scraped_at": "2026-04-17T06:24:58.143344"
+    },
+    {
+      "bank": "LINE Bank",
+      "title": "LINE總部消息",
+      "description": "",
+      "category": "其他優惠",
+      "start_date": "",
+      "end_date": "",
+      "url": "https://event.linebank.com.tw/marketing/cobrandcards/",
+      "image_url": "",
+      "tags": [],
+      "scraped_at": "2026-04-17T06:24:58.143354"
     }
   ]
 }
